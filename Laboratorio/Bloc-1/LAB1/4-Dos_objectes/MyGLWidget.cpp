@@ -35,12 +35,14 @@ void MyGLWidget::paintGL ()
   // Pintem l'escena VAO1
   glDrawArrays(GL_TRIANGLES, 0, 3);
   
+  //glBindVertexArray(0);
+  
   // Activem l'Array a pintar VAO2
   glBindVertexArray(VAO2);
   // Pintem l'escena VAO2
   glDrawArrays(GL_TRIANGLES, 0, 3);
   
-  // Desactivem el VAO
+  // Desactivem els VAOs
   glBindVertexArray(0);
 }
 

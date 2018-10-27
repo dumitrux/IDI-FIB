@@ -33,7 +33,7 @@ void MyGLWidget::paintGL ()
   glBindVertexArray(VAO1);
  
   // Pintem l'escena
-  glDrawArrays(GL_TRIANGLES, 0, 9); // 9 vertex
+  glDrawArrays(GL_TRIANGLES, 0, 9); // Nou vertex
   
   // Desactivem el VAO
   glBindVertexArray(0);
