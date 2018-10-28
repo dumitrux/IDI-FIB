@@ -113,6 +113,7 @@ void MyGLWidget::modelTransform() {
 	glm::mat4 TG(1.0);
 	TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
 	TG = glm::rotate(TG, rotacio, glm::vec3(0.0, 0.0, 1.0));
+	TG = glm::scale(TG, glm::vec3(scl, scl, scl));
 	glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
 }
 
@@ -137,11 +138,11 @@ void MyGLWidget::keyPressEvent(QKeyEvent *e) {
 			break;
 		case Qt::Key_S:
 			scl += 0.1;
-			glUniform1f(varLoc, scl);
+			modelTransform();
 			break;
 		case Qt::Key_D:
 			scl -= 0.1;
-			glUniform1f(varLoc, scl);
+			modelTransform();
 			break;
 		default: e->ignore();
 	}
