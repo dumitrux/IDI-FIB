@@ -33,6 +33,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
   private:
     void createBuffers ();
     void carregaShaders ();
+    void modelTransform ();
     
     // attribute locations
     GLuint vertexLoc, vertexCol, transLoc, rotLoc;
