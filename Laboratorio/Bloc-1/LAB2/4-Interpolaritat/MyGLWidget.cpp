@@ -70,9 +70,9 @@ void MyGLWidget::createBuffers ()
   colors[1] = glm::vec3(0.0, 1.0, 0.0);
   colors[2] = glm::vec3(0.0, 0.0, 1.0);
   
-  GLuint VBO2_colors;
-  glGenBuffers(1, &VBO2_colors);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO2_colors);
+  GLuint VBO2;
+  glGenBuffers(1, &VBO2);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO2);
   glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
   // Activem l'atribut que farem servir per vèrtex	
   glVertexAttribPointer(vertexCol, 3, GL_FLOAT, GL_FALSE, 0, 0);
@@ -102,5 +102,5 @@ void MyGLWidget::carregaShaders()
 
   // Obtenim identificador per a l'atribut “vertex” del vertex shader
   vertexLoc = glGetAttribLocation (program->programId(), "vertex");
-  vertexCol = glGetAttribLocation (program->programId(), "colors"); // Para darle el color al triangulo
+  vertexCol = glGetAttribLocation (program->programId(), "colors");
 }
