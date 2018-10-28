@@ -21,6 +21,7 @@ void MyGLWidget::initializeGL ()
   glClearColor (0.5, 0.7, 1.0, 1.0); // defineix color de fons (d'esborrat)
   carregaShaders();
   createBuffers();
+  rotacio = M_PI/4;
 }
 
 void MyGLWidget::paintGL ()
@@ -107,42 +108,32 @@ void MyGLWidget::carregaShaders()
   varLoc = glGetUniformLocation (program->programId(), "val");
 }
 
+void MyGLWidget::modelTransform() {
+	rotacio += M_PI/4;
+	glm::mat4 TG(1.0);
+	TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
+	TG = glm::rotate(TG, rotacio, glm::vec3(0.0, 0.0, 1.0));
+	glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
+}
+
 void MyGLWidget::keyPressEvent(QKeyEvent *e) {
 	makeCurrent();
-	glm::mat4 TG(1.0);
-	float rotacio = M_PI/4;
 	switch (e->key()) {
 		case Qt::Key_Left:
 			tx -= 0.1;
-			TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
-			glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
-			
-			TG = glm::rotate(TG, rotacio, glm::vec3(0.0, 0.0, 1.0));
-			glUniformMatrix4fv(rotLoc, 1,GL_FALSE, &TG[0][0]);
+			modelTransform();
 			break;
 		case Qt::Key_Right:
 			tx += 0.1;
-			TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
-			glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
-			
-			TG = glm::rotate(TG, rotacio, glm::vec3(0.0, 0.0, 1.0));
-			glUniformMatrix4fv(rotLoc, 1,GL_FALSE, &TG[0][0]);
+			modelTransform();
 			break;
 		case Qt::Key_Up:
 			ty += 0.1;
-			TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
-			glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
-			
-			TG = glm::rotate(TG, rotacio, glm::vec3(0.0, 0.0, 1.0));
-			glUniformMatrix4fv(rotLoc, 1,GL_FALSE, &TG[0][0]);
+			modelTransform();
 			break;
 		case Qt::Key_Down:
 			ty -= 0.1;
-			TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
-			glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
-			
-			TG = glm::rotate(TG, float(M_PI/4), glm::vec3(0.0, 0.0, 1.0));
-			glUniformMatrix4fv(rotLoc, 1,GL_FALSE, &TG[0][0]);
+			modelTransform();
 			break;
 		case Qt::Key_S:
 			scl += 0.1;

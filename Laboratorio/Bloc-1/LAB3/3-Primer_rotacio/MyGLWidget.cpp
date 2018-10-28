@@ -106,38 +106,34 @@ void MyGLWidget::carregaShaders()
   rotLoc = glGetUniformLocation(program->programId(), "TG");
 }
 
+void MyGLWidget::modelTransform() {
+	rotacio += M_PI/4;
+	glm::mat4 TG(1.0);
+	TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
+	TG = glm::rotate(TG, rotacio, glm::vec3(0.0, 0.0, 1.0));
+	glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
+}
+
 void MyGLWidget::keyPressEvent(QKeyEvent *e) {
 	makeCurrent();
-	glm::mat4 TG(1.0);
-	rotacio += M_PI/4;
 	TG = glm::rotate(TG, rotacio, glm::vec3(0.0, 0.0, 1.0));
 	glUniformMatrix4fv(rotLoc, 1,GL_FALSE, &TG[0][0]);
 	switch (e->key()) {
 		case Qt::Key_Left:
 			tx -= 0.1;
-			TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
-			glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
-			//rotacio += M_PI/4;
-			//TG = glm::rotate(TG, glm::vec3(0.0, 0.0, rotacio));
+			modelTransform();
 			break;
 		case Qt::Key_Right:
 			tx += 0.1;
-			TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
-			glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
-			//rotacio += M_PI/4;
-			//TG = glm::rotate(TG, glm::vec3(0.0, 0.0, rotacio));
+			modelTransform();
 			break;
 		case Qt::Key_Up:
 			ty += 0.1;
-			TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
-			glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
-			//rotacio += M_PI/4;
-			//TG = glm::rotate(TG, glm::vec3(0.0, 0.0, rotacio));
+			modelTransform();
 			break;
 		case Qt::Key_Down:
 			ty -= 0.1;
-			TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
-			glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
+			modelTransform();
 			break;
 		default: e->ignore();
 	}
