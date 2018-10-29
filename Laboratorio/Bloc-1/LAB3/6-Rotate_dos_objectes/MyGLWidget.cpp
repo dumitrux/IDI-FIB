@@ -56,9 +56,9 @@ void MyGLWidget::resizeGL (int w, int h)
 void MyGLWidget::createBuffers1 ()
 {
   glm::vec3 Vertices[3];  // Tres vèrtexs amb X, Y i Z
-  Vertices[0] = glm::vec3(-1.0, 0.0, 0.0);
-  Vertices[1] = glm::vec3(-1.0, -1.0, 0.0);
-  Vertices[2] = glm::vec3(0.0, -1.0, 0.0);
+  Vertices[0] = glm::vec3(-0.5, 0.0, 0.0);
+  Vertices[1] = glm::vec3(-0.5, -0.5, 0.0);
+  Vertices[2] = glm::vec3(0.0, -0.5, 0.0);
   
   // Creació del Vertex Array Object (VAO) que usarem per pintar
   glGenVertexArrays(1, &VAO1);
@@ -80,9 +80,9 @@ void MyGLWidget::createBuffers1 ()
 void MyGLWidget::createBuffers2 ()
 {
   glm::vec3 Vertices[3];  // Tres vèrtexs amb X, Y i Z
-  Vertices[0] = glm::vec3(1.0, 0.0, 0.0);
-  Vertices[1] = glm::vec3(0.0, -1.0, 0.0);
-  Vertices[2] = glm::vec3(1.0, -1.0, 0.0);
+  Vertices[0] = glm::vec3(0.25, 0.0, 0.0);
+  Vertices[1] = glm::vec3(0.0, -0.25, 0.0);
+  Vertices[2] = glm::vec3(0.5, -0.25, 0.0);
   
   
   // Creació del Vertex Array Object (VAO) que usarem per pintar
@@ -143,8 +143,6 @@ void MyGLWidget::keyPressEvent(QKeyEvent *e) {
 		case Qt::Key_P:
 			rotate1 += float(M_PI/6.0);
 			rotate2 -= float(M_PI/6.0);
-			modelTransform1();
-			modelTransform2();
 			break;
 		default: e->ignore();
 	}

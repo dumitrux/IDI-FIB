@@ -29,6 +29,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     virtual void resizeGL (int width, int height);
     
     virtual void keyPressEvent (QKeyEvent *e);
+    
     virtual void mouseMoveEvent (QMouseEvent *e);
 
   private:
@@ -37,8 +38,8 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     void modelTransform ();
     
     // attribute locations
-    GLuint vertexLoc, vertexCol, transLoc;
-    float tx, ty, sclx, scly, rotacio, _ant, y_ant;
+    GLuint vertexLoc, vertexCol, transLoc, rotLoc, varLoc;
+    float tx, ty, rotacio, scl, sclx, scly, x_ant, y_ant;
     
     // Program
     QOpenGLShaderProgram *program;

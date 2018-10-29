@@ -21,7 +21,12 @@ void MyGLWidget::initializeGL ()
   glClearColor (0.5, 0.7, 1.0, 1.0); // defineix color de fons (d'esborrat)
   carregaShaders();
   createBuffers();
-  rotacio = M_PI/4;
+  rotacio = 0.0;
+  tx = 0.0;
+  ty = 0.0;
+  scl = 1.0;
+  sclx = 1.0;
+  scly = 1.0;
 }
 
 void MyGLWidget::paintGL ()
@@ -29,6 +34,8 @@ void MyGLWidget::paintGL ()
   glClear (GL_COLOR_BUFFER_BIT);  // Esborrem el frame-buffer
 
   glViewport (0, 0, width(), height()); // Aquesta crida no cal, Qt la fa de forma automàtica amb aquests paràmetres
+  
+  modelTransform();
   
   // Activem l'Array a pintar 
   glBindVertexArray(VAO1);
@@ -104,14 +111,16 @@ void MyGLWidget::carregaShaders()
   vertexLoc = glGetAttribLocation (program->programId(), "vertex");
   vertexCol = glGetAttribLocation (program->programId(), "colors");   
   transLoc = glGetUniformLocation(program->programId(), "TG");
+  rotLoc = glGetUniformLocation(program->programId(), "TG");
+  varLoc = glGetUniformLocation (program->programId(), "val");
 }
 
 void MyGLWidget::modelTransform() {
-	rotacio += M_PI/4;
 	glm::mat4 TG(1.0);
 	TG = glm::translate(TG, glm::vec3(tx, ty, 0.0));
 	TG = glm::rotate(TG, rotacio, glm::vec3(0.0, 0.0, 1.0));
-	TG = glm::scale(TG, glm::vec3(sclx, scly, 1.));
+	TG = glm::scale(TG, glm::vec3(scl, scl, scl));
+	TG = glm::scale(TG, glm::vec3(sclx, scly, 1.0));
 	glUniformMatrix4fv(transLoc, 1,GL_FALSE, &TG[0][0]);
 }
 
@@ -120,19 +129,24 @@ void MyGLWidget::keyPressEvent(QKeyEvent *e) {
 	switch (e->key()) {
 		case Qt::Key_Left:
 			tx -= 0.1;
-			modelTransform();
 			break;
 		case Qt::Key_Right:
 			tx += 0.1;
-			modelTransform();
 			break;
 		case Qt::Key_Up:
 			ty += 0.1;
-			modelTransform();
 			break;
 		case Qt::Key_Down:
 			ty -= 0.1;
-			modelTransform();
+			break;
+		case Qt::Key_S:
+			scl += 0.1;
+			break;
+		case Qt::Key_D:
+			scl -= 0.1;
+			break;
+		case Qt::Key_R:
+			rotacio += M_PI/4;
 			break;
 		default: e->ignore();
 	}
@@ -142,15 +156,14 @@ void MyGLWidget::keyPressEvent(QKeyEvent *e) {
 void MyGLWidget::mouseMoveEvent(QMouseEvent *e) {
 	makeCurrent();
 	
-	if(e->x() > x_ant) sclx += 0.1;
-	else if(e->x() < x_ant) sclx -= 0.1;
+	if(e->x() > x_ant) sclx += 0.01;
+	else if(e->x() < x_ant) sclx -= 0.01;
 	
-	if(e->y() > y_ant) scly += 0.1;
-	else if(e->y() < y_ant) scly -= 0.1;
+	if(e->y() > y_ant) scly += 0.01;
+	else if(e->y() < y_ant) scly -= 0.01;
 	
 	x_ant = e->x();
 	y_ant = e->y();
 	
-	modelTransform();
 	update();
 }

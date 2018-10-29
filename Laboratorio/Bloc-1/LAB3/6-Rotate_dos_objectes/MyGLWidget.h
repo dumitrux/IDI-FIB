@@ -4,6 +4,9 @@
 #include <QOpenGLShaderProgram>
 #include "glm/glm.hpp"
 
+#include <QKeyEvent>
+#include "glm/gtc/matrix_transform.hpp"
+
 class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
 {
   Q_OBJECT
