@@ -122,6 +122,7 @@ void MyGLWidget::carregaShaders()
 
   // Obtenim identificador per a l'atribut “vertex” del vertex shader
   vertexLoc = glGetAttribLocation (program->programId(), "vertex");
+  transLoc = glGetUniformLocation(program->programId(), "TG");
 }
 
 void MyGLWidget::modelTransform1 () {

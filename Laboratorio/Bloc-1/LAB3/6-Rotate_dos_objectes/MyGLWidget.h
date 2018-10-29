@@ -33,7 +33,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     void modelTransform2 ();
     
     // attribute locations
-    GLuint vertexLoc;
+    GLuint vertexLoc, transLoc;
     
     // Program
     QOpenGLShaderProgram *program;

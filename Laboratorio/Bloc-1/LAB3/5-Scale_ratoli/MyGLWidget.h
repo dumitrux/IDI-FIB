@@ -37,7 +37,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     void modelTransform ();
     
     // attribute locations
-    GLuint vertexLoc, vertexCol, transLoc, rotLoc, varLoc;
+    GLuint vertexLoc, vertexCol, transLoc;
     float tx, ty, sclx, scly, rotacio, _ant, y_ant;
     
     // Program

@@ -104,8 +104,6 @@ void MyGLWidget::carregaShaders()
   vertexLoc = glGetAttribLocation (program->programId(), "vertex");
   vertexCol = glGetAttribLocation (program->programId(), "colors");   
   transLoc = glGetUniformLocation(program->programId(), "TG");
-  rotLoc = glGetUniformLocation(program->programId(), "TG");
-  varLoc = glGetUniformLocation (program->programId(), "val");
 }
 
 void MyGLWidget::modelTransform() {
