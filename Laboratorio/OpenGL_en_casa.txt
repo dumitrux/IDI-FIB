@@ -1,0 +1,73 @@
+INTERACCIÓN Y DISEÑO DE INTERFACES
+
+Per treballar amb OpenGL fora del laboratori
+
+Per tal de fer els exercicis d'IDI en OpenGL a una màquina diferent de 
+les del laboratori, el millor és que disposeu d'una instal·lació de linux 
+nativa. La imatge d'OpenSuse del laboratori per a VMWare no és segur que 
+funcioni perquè pot no veure totes les capacitats del hardware que podeu 
+tenir (i en particular de la targeta gràfica). En tot cas si us és més 
+fàcil amb la imatge del laboratori ho podeu provar.
+
+La instal·lació d'OpenGL la fa el driver de la targeta gràfica. Per a 
+validar que teniu una instal·lació d'OpenGL que serveix, en una terminal 
+entreu la comanda 
+glxinfo | grep -E "direct rendering|^OpenGL"
+Hauríeu de veure una sortida semblant (però no necessàriament igual, esclar!) a aquesta:
+     direct rendering: Yes
+     OpenGL vendor string: NVIDIA Corporation
+     OpenGL renderer string: GeForce GTX 660 Ti/PCIe/SSE2
+     OpenGL core profile version string: 4.3.0 NVIDIA 331.113
+     OpenGL core profile shading language version string: 4.30 NVIDIA via Cg compiler
+     OpenGL core profile context flags: (none)
+     OpenGL core profile profile mask: core profile
+     OpenGL core profile extensions:
+     OpenGL version string: 4.4.0 NVIDIA 331.113
+     OpenGL shading language version string: 4.40 NVIDIA via Cg compiler
+     OpenGL context flags: (none)
+     OpenGL profile mask: (none)
+     OpenGL extensions:
+Comproveu que la línia (segurament la primera) que diu "direct rendering:" diu "Yes". 
+Comproveu també que la línia que diu "core profile version" dóna un número 
+de versió igual o posterior a 3.3. Mireu també que la línia que diu "shading 
+language version string" doni una versií igual o posterior a 3.30.
+
+També necessitareu tenir instal·lada una versió de Qt per a la vostra 
+màquina igual o posterior a la 5.4. Hauríeu de poder trobar paquets 
+d'instal·lació per al vostre sistema. Si us podeu baixar una versió ja 
+compilada per al vostre sistema millor; la compilació de Qt a partir dels 
+fonts és molt llarga i en una màquina moderna ocuparà vàries hores. 
+Hi ha versions de Linux que ja donen la possibilitat d'instal·lar Qt 
+com un paquet propi disponible en la distribució (com Ubuntu, per exemple).
+
+Si no podeu fer servir una instal·lació Linux nativa, aleshores és 
+possible que pugueu igualment fer els exercicis, instal·lant una versió 
+de Qt segons s'indica més amunt, i assegurant-vos que la instal·lació 
+d'OpenGL de què disposeu satisfà els requeriments de versions indicats més amunt. 
+En tot cas, és altament recomanable que en aquests casos us assegureu 
+que el vostre codi funciona també en el laboratori, que és on fareu el control.
+
+---------------------------------------------------------------
+Cas que feu servir Mac OSX (1.7.5 o posterior):
+---------------------------------------------------------------
+
+Si feu servir Mac OSX, les indicacions donades sobre l'ús de glxinfo 
+per a validar una instal·lació no us serviran, perquè inclús a les versions 
+més recents del sistema, aquesta eina reportarà sols la versió suportada 
+pel "compatibility profile", i us dirà que és "2.1", i sols suporta 
+la versió del "shading language" 1.20.  En aquests casos, primer de tot, 
+consulteu
+https://developer.apple.com/opengl/capabilities/ per a comprovar si 
+per al vostre hardware i el sistema que tingueu instal·lat, Apple suporta 
+una versió prou recent d'OpenGL (la vostra màquina ha d'aparèixer; 
+la versió "software renderer" no és prou). Si no esteu segurs de la configuració, 
+mireu l'"about this mac" per a confirmar la placa gràfica.
+
+Alternativament, podeu anar a l'AppStore, i instal·lar-vos 
+l'aplicació "OpenGL extensions viewer", que us donarà informació abundant 
+i detallada de la vostra màquina.
+
+Recordeu també que "executar des d'una terminal" com us recomanem 
+per a veure els missatges del compilador i del muntador de shader programs, 
+en el cas dels Macs no vol dir fer "open exemple.app", 
+sinó fer "./exemple.app/Contents/MacOS/exemple".
