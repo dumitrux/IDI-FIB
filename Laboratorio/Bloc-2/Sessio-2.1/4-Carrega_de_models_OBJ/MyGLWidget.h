@@ -40,7 +40,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     GLuint transLoc, projLoc, viewLoc;
     // VAO names
     //GLuint VAO_Casa;
-    GLuint  VA0_HomerProves;
+    GLuint  VAO_HomerProves;
     // Program
     QOpenGLShaderProgram *program;
     // Internal vars
