@@ -38,7 +38,7 @@ void MyGLWidget::paintGL ()
   // Carreguem la transformació de model
   modelTransform ();
   
-  glBindVertexArray(VA0_HomerProves);
+  glBindVertexArray(VAO_HomerProves);
   glDrawArrays(GL_TRIANGLES, 0, HomerProves.faces().size()*3);
 
   glBindVertexArray (0);
@@ -113,20 +113,20 @@ void MyGLWidget::createBuffers ()
   HomerProves.load("../../models/HomerProves.obj");
   
   // Creació del Vertex Array Object per pintar
-  glGenVertexArrays(1, &VA0_HomerProves);
-  glBindVertexArray(VA0_HomerProves);
+  glGenVertexArrays(1, &VAO_HomerProves);
+  glBindVertexArray(VAO_HomerProves);
   
-  GLuint VB0_HomerProvesPos;
-  glGenBuffers(1, &VB0_HomerProvesPos);
-  glBindBuffer(GL_ARRAY_BUFFER, VB0_HomerProvesPos);
+  GLuint VBO_HomerProvesPos;
+  glGenBuffers(1, &VBO_HomerProvesPos);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_HomerProvesPos);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*HomerProves.faces().size()*3*3, 
 				HomerProves.VBO_vertices(), GL_STATIC_DRAW);
   glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(vertexLoc);
   
-  GLuint VB0_HomerProvesCol;
-  glGenBuffers(1, &VB0_HomerProvesCol);
-  glBindBuffer(GL_ARRAY_BUFFER, VB0_HomerProvesCol);
+  GLuint VBO_HomerProvesCol;
+  glGenBuffers(1, &VBO_HomerProvesCol);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_HomerProvesCol);
   glBufferData(GL_ARRAY_BUFFER,sizeof(GLfloat)*HomerProves.faces().size()*3*3, 
 				HomerProves.VBO_matdiff(), GL_STATIC_DRAW);
 
