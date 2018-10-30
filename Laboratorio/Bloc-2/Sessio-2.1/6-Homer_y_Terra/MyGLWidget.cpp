@@ -37,12 +37,12 @@ void MyGLWidget::paintGL ()
   // Esborrem el frame-buffer
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
-  glBindVertexArray(VA0_HomerProves);
+  glBindVertexArray(VAO_HomerProves);
   glDrawArrays(GL_TRIANGLES, 0, HomerProves.faces().size()*3);
   
   modelTransformTerra (); // Carreguem la transformació de model
   
-  glBindVertexArray(VA1_Terra);
+  glBindVertexArray(VAO_Terra);
   glDrawArrays(GL_TRIANGLES, 0, 6);
   
   glBindVertexArray (0);
@@ -125,20 +125,20 @@ void MyGLWidget::createBuffers ()
   HomerProves.load("../../models/HomerProves.obj");
   
   // Creació del Vertex Array Object per pintar
-  glGenVertexArrays(1, &VA0_HomerProves);
-  glBindVertexArray(VA0_HomerProves);
+  glGenVertexArrays(1, &VAO_HomerProves);
+  glBindVertexArray(VAO_HomerProves);
   
-  GLuint VB0_HomerProvesPos;
-  glGenBuffers(1, &VB0_HomerProvesPos);
-  glBindBuffer(GL_ARRAY_BUFFER, VB0_HomerProvesPos);
+  GLuint VBO_HomerProvesPos;
+  glGenBuffers(1, &VBO_HomerProvesPos);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_HomerProvesPos);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*HomerProves.faces().size()*3*3, 
 				HomerProves.VBO_vertices(), GL_STATIC_DRAW);
   glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(vertexLoc);
   
-  GLuint VB0_HomerProvesCol;
-  glGenBuffers(1, &VB0_HomerProvesCol);
-  glBindBuffer(GL_ARRAY_BUFFER, VB0_HomerProvesCol);
+  GLuint VBO_HomerProvesCol;
+  glGenBuffers(1, &VBO_HomerProvesCol);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_HomerProvesCol);
   glBufferData(GL_ARRAY_BUFFER,sizeof(GLfloat)*HomerProves.faces().size()*3*3, 
 				HomerProves.VBO_matdiff(), GL_STATIC_DRAW);
 
@@ -167,21 +167,21 @@ void MyGLWidget::createBuffers ()
 	glm::vec3(0,0,1),
   };
   
-  glGenVertexArrays(1, &VA1_Terra);
-  glBindVertexArray(VA1_Terra);
+  glGenVertexArrays(1, &VAO_Terra);
+  glBindVertexArray(VAO_Terra);
   
-  GLuint VB0_TerraPos;
-  glGenBuffers(1, &VB0_TerraPos);
-  glBindBuffer(GL_ARRAY_BUFFER, VB0_TerraPos);
+  GLuint VBO_TerraPos;
+  glGenBuffers(1, &VBO_TerraPos);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_TerraPos);
   glBufferData(GL_ARRAY_BUFFER, sizeof(posicio), posicio, GL_STATIC_DRAW);
   
   // Activem l'atribut vertexLoc
   glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(vertexLoc);
   
-  GLuint VB0_TerraCol;
-  glGenBuffers(1, &VB0_TerraCol);
-  glBindBuffer(GL_ARRAY_BUFFER, VB0_TerraCol);
+  GLuint VBO_TerraCol;
+  glGenBuffers(1, &VBO_TerraCol);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_TerraCol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(color), color, GL_STATIC_DRAW);
 
   // Activem l'atribut colorLoc
