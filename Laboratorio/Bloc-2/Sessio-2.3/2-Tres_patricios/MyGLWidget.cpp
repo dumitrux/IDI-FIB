@@ -43,11 +43,7 @@ void MyGLWidget::ini_camera ()
   raw = 1.0f;
   FOVini = 2.0 * asin(radi / distancia);
   FOV = FOVini;
-  /*
-  OBS = glm::vec3(0,2.0,distancia);
-  VRP = glm::vec3(centreEscena);
-  UP = glm::vec3(0,1,0);
-  */
+  
   girTheta = 0.0;
   girPsi = 0.0;
   projectTransform();
@@ -62,7 +58,11 @@ void MyGLWidget::paintGL ()
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   glBindVertexArray(VAO_Patricio);
-  modelTransformPatricio(); // Carreguem la transformació de model (rotacio)
+  modelTransformPatricio1();
+  glDrawArrays(GL_TRIANGLES, 0, Patricio.faces().size()*3);
+  modelTransformPatricio2();
+  glDrawArrays(GL_TRIANGLES, 0, Patricio.faces().size()*3);
+  modelTransformPatricio3();
   glDrawArrays(GL_TRIANGLES, 0, Patricio.faces().size()*3);
   
   glBindVertexArray(VAO_Terra);
@@ -96,7 +96,8 @@ void MyGLWidget::modelTransformPatricio1 ()
   transform = glm::rotate(transform, rotate, glm::vec3(0.0, 1.0, 0.0));
   transform = glm::scale(transform, glm::vec3(scale));
   transform = glm::scale(transform, glm::vec3(escala));
-  transform = glm::translate(transform, -centreBasePatricio);
+  transform = glm::translate(transform, 
+  glm::vec3(-centreBasePatricio.x+2 ,-centreBasePatricio.y, -centreBasePatricio.z+2));
   glUniformMatrix4fv(transLoc, 1, GL_FALSE, &transform[0][0]);
 }
 
@@ -104,7 +105,7 @@ void MyGLWidget::modelTransformPatricio2 ()
 {
   // Matriu de transformació de model
   glm::mat4 transform (1.0f);
-  transform = glm::rotate(transform, rotate, glm::vec3(0.0, 1.0, 0.0));
+  transform = glm::rotate(transform, rotate+float(M_PI/2.0), glm::vec3(0.0, 1.0, 0.0));
   transform = glm::scale(transform, glm::vec3(scale));
   transform = glm::scale(transform, glm::vec3(escala));
   transform = glm::translate(transform, -centreBasePatricio);
@@ -115,10 +116,11 @@ void MyGLWidget::modelTransformPatricio3 ()
 {
   // Matriu de transformació de model
   glm::mat4 transform (1.0f);
-  transform = glm::rotate(transform, rotate, glm::vec3(0.0, 1.0, 0.0));
+  transform = glm::rotate(transform, rotate+float(M_PI), glm::vec3(0.0, 1.0, 0.0));
   transform = glm::scale(transform, glm::vec3(scale));
   transform = glm::scale(transform, glm::vec3(escala));
-  transform = glm::translate(transform, -centreBasePatricio);
+  transform = glm::translate(transform,
+  glm::vec3(-centreBasePatricio.x-2 ,-centreBasePatricio.y, -centreBasePatricio.z-2));
   glUniformMatrix4fv(transLoc, 1, GL_FALSE, &transform[0][0]);
 }
 
@@ -132,11 +134,6 @@ void MyGLWidget::projectTransform ()
 
 void MyGLWidget::viewTransform () 
 {
-	/*
-	//glm::lookAt(OBS, VRP, UP);
-	glm::mat4 View = glm::lookAt (OBS, VRP, UP);
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
-	*/
 	glm::mat4 View(1.0);
 	View = glm::translate(View, glm::vec3(0., 0., -distancia));
 	View = glm::rotate(View, girTheta, glm::vec3(1., 0., 0.));
@@ -277,7 +274,7 @@ void MyGLWidget::calculaCapsaModel ()
   */
   escala = 1.0/(maxy-miny);
   centreBasePatricio= glm::vec3((minx+maxx)/2, miny, (minz+maxz)/2);
-  escenaMaxima.y = 4.0;
+  escenaMaxima.y = 1.0;
 }
 
 void MyGLWidget::calculaCapsaEscena ()

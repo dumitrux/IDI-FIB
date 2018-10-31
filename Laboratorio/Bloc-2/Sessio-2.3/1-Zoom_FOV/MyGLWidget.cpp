@@ -43,11 +43,7 @@ void MyGLWidget::ini_camera ()
   raw = 1.0f;
   FOVini = 2.0 * asin(radi / distancia);
   FOV = FOVini;
-  /*
-  OBS = glm::vec3(0,2.0,distancia);
-  VRP = glm::vec3(centreEscena);
-  UP = glm::vec3(0,1,0);
-  */
+  
   girTheta = 0.0;
   girPsi = 0.0;
   projectTransform();
@@ -62,7 +58,7 @@ void MyGLWidget::paintGL ()
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   glBindVertexArray(VAO_Patricio);
-  modelTransformPatricio(); // Carreguem la transformació de model (rotacio)
+  modelTransformPatricio();
   glDrawArrays(GL_TRIANGLES, 0, Patricio.faces().size()*3);
   
   glBindVertexArray(VAO_Terra);
@@ -109,11 +105,6 @@ void MyGLWidget::projectTransform ()
 
 void MyGLWidget::viewTransform () 
 {
-	/*
-	//glm::lookAt(OBS, VRP, UP);
-	glm::mat4 View = glm::lookAt (OBS, VRP, UP);
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
-	*/
 	glm::mat4 View(1.0);
 	View = glm::translate(View, glm::vec3(0., 0., -distancia));
 	View = glm::rotate(View, girTheta, glm::vec3(1., 0., 0.));
