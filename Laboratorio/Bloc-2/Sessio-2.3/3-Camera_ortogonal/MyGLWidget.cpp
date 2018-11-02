@@ -31,12 +31,12 @@ void MyGLWidget::initializeGL ()
   calculaCentreEscnea();
   calculaRadiEscena();
   
+  perspectiva = true;
   ini_camera();
 }
 
 void MyGLWidget::ini_camera () 
 {
-  // distancia pot ser valor qualsevol que peremti veure tota lescena
   distancia = radi * 2.0;
   Znear = distancia - radi;
   Zfar = distancia + radi;
@@ -46,6 +46,7 @@ void MyGLWidget::ini_camera ()
   
   girTheta = float(M_PI/8.);
   girPsi = 0.0;
+  
   projectTransform();
   viewTransform();
 }
@@ -118,7 +119,6 @@ void MyGLWidget::modelTransformPatricio3 ()
   glm::mat4 transform (1.0f);
   transform = glm::rotate(transform, rotate+float(M_PI), glm::vec3(0.0, 1.0, 0.0));
   transform = glm::scale(transform, glm::vec3(scale));
-  // Es posa translate en 2,0,2 perque al fer el rotate de 90 graus es posa a -2,0,-2
   transform = glm::translate(transform, glm::vec3(2., 0., 2.));
   transform = glm::scale(transform, glm::vec3(escala));
   transform = glm::translate(transform, -centreBasePatricio);
@@ -128,8 +128,13 @@ void MyGLWidget::modelTransformPatricio3 ()
 
 void MyGLWidget::projectTransform () 
 {
-	//glm::perspective (FOV en radians, ra window, Znear, Zfar);
-	glm::mat4 Proj = glm::perspective (FOV, raw, Znear, Zfar);
+	glm::mat4 Proj;
+	if (perspectiva)
+		Proj = glm::perspective (FOV, raw, Znear, Zfar);
+	else
+		Proj = glm::ortho(-radi, radi, -radi, radi, Znear, Zfar);
+		//Proj = glm::ortho(left, right, bottom, top, Znear, Zfar);
+	
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, &Proj[0][0]);
 }
 
@@ -328,6 +333,11 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
 	}
 	case Qt::Key_X: {
 		FOV += 0.1;
+		projectTransform();
+		break;
+	}
+	case Qt::Key_O: {
+		perspectiva = !perspectiva;
 		projectTransform();
 		break;
 	}

@@ -292,11 +292,13 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
 		break;
 	}
 	case Qt::Key_Z: {
-		FOV -= float(M_PI)/8.0f;
+		FOV -= 0.1;
+		projectTransform();
 		break;
 	}
 	case Qt::Key_X: {
-		FOV += float(M_PI)/8.0f;
+		FOV += 0.1;
+		projectTransform();
 		break;
 	}
 	
