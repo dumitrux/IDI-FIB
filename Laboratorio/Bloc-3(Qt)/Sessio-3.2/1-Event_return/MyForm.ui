@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>MyForm</class>
+ <widget class="QWidget" name="MyForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>626</width>
-    <height>477</height>
+    <width>466</width>
+    <height>317</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Entra el teu text:</string>
+          <string>Entrar el nou text: </string>
          </property>
         </widget>
        </item>
@@ -72,7 +72,7 @@
        <item>
         <widget class="QPushButton" name="pushButton">
          <property name="text">
-          <string>Quit</string>
+          <string>&amp;Quit</string>
          </property>
         </widget>
        </item>
@@ -89,8 +89,7 @@
    <header>MyLineEdit.h</header>
    <slots>
     <signal>enviaText(QString)</signal>
-    <slot>enviaText()</slot>
-    <slot>tractarReturn()</slot>
+    <slot>tractaReturn()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -99,16 +98,16 @@
   <connection>
    <sender>pushButton</sender>
    <signal>clicked()</signal>
-   <receiver>Form</receiver>
+   <receiver>MyForm</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>584</x>
-     <y>455</y>
+     <x>410</x>
+     <y>282</y>
     </hint>
     <hint type="destinationlabel">
-     <x>445</x>
-     <y>370</y>
+     <x>373</x>
+     <y>174</y>
     </hint>
    </hints>
   </connection>
@@ -116,15 +115,15 @@
    <sender>lineEdit</sender>
    <signal>returnPressed()</signal>
    <receiver>lineEdit</receiver>
-   <slot>tractarReturn()</slot>
+   <slot>tractaReturn()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>277</x>
-     <y>51</y>
+     <x>199</x>
+     <y>54</y>
     </hint>
     <hint type="destinationlabel">
-     <x>171</x>
-     <y>54</y>
+     <x>154</x>
+     <y>52</y>
     </hint>
    </hints>
   </connection>
@@ -135,12 +134,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>53</y>
+     <x>132</x>
+     <y>54</y>
     </hint>
     <hint type="destinationlabel">
-     <x>89</x>
-     <y>12</y>
+     <x>105</x>
+     <y>14</y>
     </hint>
    </hints>
   </connection>

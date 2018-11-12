@@ -1,11 +1,12 @@
 #include <QLineEdit>
-class MyLineEdit:public QLineEdit
+
+class MyLineEdit: public QLineEdit
 {
-	Q_OBJECT //IMPORTANT
+	Q_OBJECT
 	public:
 		MyLineEdit (QWidget *parent);
-	public slots: //IMPORTANT
-		void tractarReturn ();
+	public slots:
+		void tractaReturn();
 	signals:
 		void enviaText (const QString &);
 };

@@ -24,7 +24,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Form
+class Ui_MyForm
 {
 public:
     QVBoxLayout *verticalLayout_3;
@@ -39,28 +39,28 @@ public:
     QSpacerItem *verticalSpacer;
     QPushButton *pushButton;
 
-    void setupUi(QWidget *Form)
+    void setupUi(QWidget *MyForm)
     {
-        if (Form->objectName().isEmpty())
-            Form->setObjectName(QStringLiteral("Form"));
-        Form->resize(626, 477);
-        verticalLayout_3 = new QVBoxLayout(Form);
+        if (MyForm->objectName().isEmpty())
+            MyForm->setObjectName(QStringLiteral("MyForm"));
+        MyForm->resize(466, 317);
+        verticalLayout_3 = new QVBoxLayout(MyForm);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        label = new QLabel(Form);
+        label = new QLabel(MyForm);
         label->setObjectName(QStringLiteral("label"));
 
         verticalLayout->addWidget(label);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label_2 = new QLabel(Form);
+        label_2 = new QLabel(MyForm);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout->addWidget(label_2);
 
-        lineEdit = new MyLineEdit(Form);
+        lineEdit = new MyLineEdit(MyForm);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
 
         horizontalLayout->addWidget(lineEdit);
@@ -83,7 +83,7 @@ public:
 
         verticalLayout_2->addItem(verticalSpacer);
 
-        pushButton = new QPushButton(Form);
+        pushButton = new QPushButton(MyForm);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
         verticalLayout_2->addWidget(pushButton);
@@ -95,26 +95,26 @@ public:
         verticalLayout_3->addLayout(horizontalLayout_2);
 
 
-        retranslateUi(Form);
-        QObject::connect(pushButton, SIGNAL(clicked()), Form, SLOT(close()));
-        QObject::connect(lineEdit, SIGNAL(returnPressed()), lineEdit, SLOT(tractarReturn()));
+        retranslateUi(MyForm);
+        QObject::connect(pushButton, SIGNAL(clicked()), MyForm, SLOT(close()));
+        QObject::connect(lineEdit, SIGNAL(returnPressed()), lineEdit, SLOT(tractaReturn()));
         QObject::connect(lineEdit, SIGNAL(enviaText(QString)), label, SLOT(setText(QString)));
 
-        QMetaObject::connectSlotsByName(Form);
+        QMetaObject::connectSlotsByName(MyForm);
     } // setupUi
 
-    void retranslateUi(QWidget *Form)
+    void retranslateUi(QWidget *MyForm)
     {
-        Form->setWindowTitle(QApplication::translate("Form", "Form", 0));
+        MyForm->setWindowTitle(QApplication::translate("MyForm", "Form", 0));
         label->setText(QString());
-        label_2->setText(QApplication::translate("Form", "Entra el teu text:", 0));
-        pushButton->setText(QApplication::translate("Form", "Quit", 0));
+        label_2->setText(QApplication::translate("MyForm", "Entrar el nou text: ", 0));
+        pushButton->setText(QApplication::translate("MyForm", "&Quit", 0));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Form: public Ui_Form {};
+    class MyForm: public Ui_MyForm {};
 } // namespace Ui
 
 QT_END_NAMESPACE
