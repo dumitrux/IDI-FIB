@@ -1,0 +1,187 @@
+# IDI 
+
+SC - Sistema de coordenades
+SCM - SC del Model
+TG - Transformació geomètrica
+VAO - Vertex Array Object
+VBO - Vertex Buffer Object
+VRP - View Reference Point
+UP - vector que indica direcció de l'eix vertical de la camera
+Znear - finestra a partir d'on es comença a visualitzar
+Zfar - finestra fins a on es arriba a visualitzar
+
+S'utilitzara topologia implícita (vèrtex repetits)
+
+## TG
+T(tx, ty, tz) translate
+R(angle) - rotate -> (Rx o Rx o Ry)
+S(sx, sy, sz) - scale
+
+
+T() no es destí, sino moviment respecte actual (PuntFinal-PuntInicial=T).
+R() escalat respecte origen de coordenades, sino es mou objecte.
+
+Producte matrius no propietat conmutativa (importa l'ordre), 
+sí associativa (s'especifica tots el moviments en una sola matriu).
+Primera TG especificada es l'última que es fa.
+
+Els punts del vertex s'han de donar en sentit antihorari. Axí amb regla
+mà dreta el vector va cap en fora.
+
+
+CapsaMinContenidora = (xmin, ymin, zmin, xmax, ymax, zmax)
+Mides:
+	amplada -> a = (xmax-xmin)
+	alçada -> h = (ymax-ymin)
+	fondaria -> f = (zmax-zmin)
+CentreBaseCapsa = (cbx, cby, cbz) = (xmin+xmax)/2, ymin, (zmin+zmax)/2
+
+
+OpenGL: API per visualització de gràfics 3D.
+Qt: API per a disseny d'interfícies i interacció.
+
+
+## BLOC_1
+### LAB_1:
+Ejecutar:
+qmake -> genera el 'Makefile' a partir del .pro.
+make -> compila i enllaça
+/*
+qmake-qt5
+make
+./executable
+*/
+
+Mètodes virtuals que cal implementar:
+
+
+* initializeGL ()
+	- inicialització d'OpenGL.
+	- Qt en fa la primera crida.
+* paintGL()
+	- Codi per redibuixar l'escena.
+	- Qt la cridarà cada cop que calgui el repintat (swapBuffers automatic).
+* resizeGL()
+	- Codi que cal fer quan es redimensiona la finestra.
+	- Qt la cridarà quan es creï la finsetra, i cada cop que es modifiqui
+	la mida de la finestra.
+
+### Crear VAO
+GLuint VAO; // variable on es guarda identificador del VAO
+glGenVertexArrays(1, &VAO); // generacio de lidentificador
+glBindArray(VAO); // activacio del VAO
+
+### Crear VBO
+GLuint VBO; // varaible on es guarda identificador del VBO
+glGenBuffers(1, &VBO); // generacio de l'identificador
+glBindBuffer(GL_ARRAY_BUFFER, VBO); // activacio del VBO
+
+### Guardar llista de vèrtexs en el VBO
+glBufferData(GL_ARRAY_BUFFER, sizeof(Verts), Verts, GL_STATIC_DRAW);
+// envia Verts a la GPU
+
+glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+// indica caracteristiques de latribut del vertex de vertexLoc
+glEnableVertexAttribArray(vertexLoc); // activa latribut vertex vertexLoc
+
+### Per pintar
+glBindVertexArray(VAO); // activa VAO
+glDrawArrays(GL_TRIANGLES, 0 ,3); // pinta VAO
+
+
+### LAB2
+
+GLSL (OpenGL Shading Language), llenguatge de programació d'alt nivell per programar shaders.
+Sintaxi basada en C.
+
+Tipus de dades:
+	* Escalars:
+	void, int, uint, float, bool
+	* Vctorials:
+	vec2, vec3, mat2, mat2x3, ..., ivec3, bvec4, ...
+	Matrius per columnes!
+
+Funcions predefinides:
+	* Trigonomètriques:
+	radians(), degrees(), sin(), cos(), tan(), asin(), acos(), atan()
+	* Numèriques:
+	pow(), log(), exp(), abs(), sign(), floor(), min(), max()
+	* Sobre vectors i punts:
+	length(), distance(), dot(), cross(), normalize()
+
+
+
+
+### LAB3
+
+// associar identificador al shader (només cal ferlo un cop)
+varLoc = glGerUniformLocation(program->programId(),"val");
+
+// donar valor al uniform (cal ferlo cada cop que es vulgui canviar el valor)
+// scl variable que conte el valor que es vol per "val"
+glUniform1f(varLoc, scl);
+
+Funcions OpenGL per a uniforms:
+* glUniform1{f|i|ui} // per a pasar un unic valor
+* glUniform3fv // per a pasar vector de tres elements
+* glUniformMatrix4fv // per a pasara matrius de transformacio
+
+Interacció directa amb Qt
+* virtual void mousePressEvent(QMouseEvent *e)
+* virtual void mouseReleaseEvent(QMouseEvent *e)
+* virtual void mouseMoveEvent(QMouseEvent *e)
+* virtual void keyPressEvent(QKeyEvent *e)
+
+
+OpenGL cosider origen del SC a la cantonada inferior esquerra,
+Qt en canvi a la cantonada superior esquerra.
+
+Matrius de transformació:
+translate(glm::mat4 m_ant, glm::vec3 vec_trans);
+scale(glm::mat4 m_ant, glm::vec3 vec_scale);
+rotate(glm::mat4 m_ant, float angle, glm::vec3 vec_axe);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ús del resources de Qt
+Para poder pasara el ejecutable a alguien y que no pueda ver el codigo.
+
+1- Afegir al .pro
+RESOURCES += shaders.qrc
+
+2- Crear el fitxer shaders.qrc
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+	<file>shaders/vertshad.vert</file>
+	<file>shaders/fragshad.frag</file>
+</qresource>
+</RCC>
+
+3- Canviar les referències als noms dels fitxers shaders:
+fs.compilerSourceFile(":/shaders/fragshad.frag")
+
+
+
+
+
+
+
+
+
+
