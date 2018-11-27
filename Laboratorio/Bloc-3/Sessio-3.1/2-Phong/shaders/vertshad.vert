@@ -73,7 +73,7 @@ void main()
 	L = normalize(L);
 	NM = normalize(NM);
 	
-    fcolor = Lambert(NM, L);
+    fcolor = Phong(NM, L, vec4(vertSCO, 1.));
     
     gl_Position = proj * view * TG * vec4 (vertex, 1.0);
 }
