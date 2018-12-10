@@ -25,7 +25,14 @@ void MyGLWidget::initializeGL ()
   carregaShaders();
   createBuffersPatricio();
   createBuffersTerraIParet();
-
+  
+  posFocusX = 1;
+  glm::vec3 posFocus = glm::vec3(posFocusX, 0, 1);
+  glUniform3fv(posFocusLoc, 1, &posFocus[0]);
+  
+  glm::vec3 colFocus = glm::vec3(0.8, 0.8, 0.8);
+  glUniform3fv(colFocusLoc, 1, &colFocus[0]);
+  
   iniEscena();
   iniCamera();
 }
@@ -131,7 +138,14 @@ void MyGLWidget::createBuffersPatricio ()
   // Buffer de component shininness
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Patr[5]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*patr.faces().size()*3, patr.VBO_matshin(), GL_STATIC_DRAW);
-
+  
+  /*
+  // Buffer de NormalMatrixLoc
+  glm::mat3 NormalMatrixLoc = glm::inverseTranspose(glm::mat3(View*TG));
+  */
+  
+  
+  
   glVertexAttribPointer(matshinLoc, 1, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(matshinLoc);
 
@@ -167,7 +181,7 @@ void MyGLWidget::createBuffersTerraIParet ()
 
   // Definim el material del terra
   glm::vec3 amb(0.2,0,0.2);
-  glm::vec3 diff(0.8,0,0.8);
+  glm::vec3 diff(0,0,0.8);
   glm::vec3 spec(0,0,0);
   float shin = 100;
 
@@ -267,11 +281,19 @@ void MyGLWidget::carregaShaders()
   matspecLoc = glGetAttribLocation (program->programId(), "matspec");
   // Obtenim identificador per a l'atribut “matshin” del vertex shader
   matshinLoc = glGetAttribLocation (program->programId(), "matshin");
-
+  
+  /*
+  // Obtenim identificador per a l'atribut “normalMatrixLoc” del vertex shader
+  normalMatrixLoc = glGetAttribLocation (program->programId(), "NormalMatrix");
+  */
+  
   // Demanem identificadors per als uniforms del vertex shader
   transLoc = glGetUniformLocation (program->programId(), "TG");
   projLoc = glGetUniformLocation (program->programId(), "proj");
   viewLoc = glGetUniformLocation (program->programId(), "view");
+  posFocusLoc = glGetUniformLocation (program->programId(), "posFocus");
+  colFocusLoc = glGetUniformLocation (program->programId(), "colFocus");
+  
 }
 
 void MyGLWidget::modelTransformPatricio ()
@@ -344,6 +366,22 @@ void MyGLWidget::keyPressEvent(QKeyEvent* event)
       projectTransform ();
       break;
     }
+    case Qt::Key_K: {
+		if(posFocusX >= -2) {
+			posFocusX -= 0.2;
+			glm::vec3 posFocus = glm::vec3(posFocusX, 0, 1);
+			glUniform3fv(posFocusLoc, 1, &posFocus[0]);
+		}
+		break;
+	}
+	case Qt::Key_L: {
+		if(posFocusX <= 2) {
+			posFocusX += 0.2;
+			glm::vec3 posFocus = glm::vec3(posFocusX, 0, 1);
+			glUniform3fv(posFocusLoc, 1, &posFocus[0]);
+		}
+		break;
+	}
     default: event->ignore(); break;
   }
   update();

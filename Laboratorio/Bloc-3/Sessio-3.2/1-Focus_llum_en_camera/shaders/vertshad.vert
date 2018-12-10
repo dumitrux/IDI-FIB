@@ -11,11 +11,13 @@ in float matshin;
 uniform mat4 proj;
 uniform mat4 view;
 uniform mat4 TG;
+uniform vec3 posFocus;
+uniform vec3 colFocus;
 
 // Valors per als components que necessitem dels focus de llum
-vec3 colFocus = vec3(0.8, 0.8, 0.8);
+//vec3 colFocus = vec3(0.8, 0.8, 0.8);
 vec3 llumAmbient = vec3(0.2, 0.2, 0.2);
-vec3 posFocus = vec3(1, 1, 1);  // en SCA
+//vec3 posFocus = vec3(1, 0, 1);  // en SCA
 
 out vec3 fcolor;
 
@@ -59,7 +61,8 @@ void main()
 	// Passar posicio del vertex a SCO
 	vec3 vertSCO = (view * TG * vec4(vertex, 1.0)).xyz;
 	
-	// Direccio llum i posFocus en SCA
+	// Dixar posicio del focus de llum en SCA
+	// Direccio llum
 	vec3 L = posFocus - vertSCO;
 	
 	// Passar vector normal a SCO

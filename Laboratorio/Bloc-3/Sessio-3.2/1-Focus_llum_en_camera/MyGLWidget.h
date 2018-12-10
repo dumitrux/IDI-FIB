@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/matrix_inverse.hpp"
 
 #include "model.h"
 
@@ -55,6 +56,8 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     GLuint transLoc, projLoc, viewLoc;
     // attribute locations
     GLuint vertexLoc, normalLoc, matambLoc, matdiffLoc, matspecLoc, matshinLoc;
+    GLuint posFocusLoc, colFocusLoc;
+    //GLuint normalMatrixLoc;
 
     // model
     Model patr;
@@ -63,6 +66,7 @@ class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     float escala;
     // radi de l'escena
     float radiEsc;
+    float posFocusX;
 
     typedef  enum {NONE, ROTATE} InteractiveAction;
     InteractiveAction DoingInteractive;
